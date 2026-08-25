@@ -1,35 +1,96 @@
-
 const formulario = document.getElementById("meuFormulario");
 
-formulario.addEventListener("submit", function (event) {
+formulario.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
 
-    let nome = document.getElementById("nome").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let senha = document.getElementById("senha").value.trim();
+    // ========================================
+    // PEGANDO OS VALORES DOS CAMPOS
+    // ========================================
 
-    // Validação de nome completo (pelo menos duas palavras)
-    if (nome === "" || nome.split(/\s+/).length < 2) {
-        alert("Digite seu nome completo (Nome e Sobrenome).");
+    const nome = document.getElementById("nome").value.trim();
+
+    const email = document.getElementById("email").value.trim();
+
+    const senha = document.getElementById("senha").value.trim();
+
+
+    // ========================================
+    // PRIMEIRA VALIDAÇÃO:
+    // VERIFICAR SE TODOS OS CAMPOS FORAM PREENCHIDOS
+    // ========================================
+
+    if (nome === "" || email === "" || senha === "") {
+
+        alert("Todos os campos precisam ser preenchidos.");
+
         return;
     }
 
-    // Validação de formato de e-mail
-    let emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailValido.test(email)) {
-        alert("Insira um e-mail válido.");
+
+    // ========================================
+    // VALIDAÇÃO DO NOME
+    // ========================================
+
+    if (nome.length < 3) {
+
+        alert("Digite um nome válido.");
+
         return;
     }
 
-    // Validação de tamanho mínimo da senha
-    if (senha.length < 6) {
-        alert("A senha deve possuir pelo menos 6 caracteres.");
+
+    // ========================================
+    // VALIDAÇÃO DO E-MAIL
+    // ========================================
+
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!regexEmail.test(email)) {
+
+        alert("Digite um e-mail válido.");
+
         return;
     }
 
-    // Se passar em todas as validações:
+
+    // ========================================
+    // VALIDAÇÃO DA SENHA
+    // ========================================
+
+    /*
+        A senha precisa ter:
+
+        - Pelo menos 8 caracteres
+        - Uma letra minúscula
+        - Uma letra maiúscula
+        - Um número
+        - Um caractere especial
+    */
+
+    const regexSenha =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+
+    if (!regexSenha.test(senha)) {
+
+        alert(
+            "A senha deve ter no mínimo 8 caracteres, " +
+            "incluindo pelo menos uma letra maiúscula, " +
+            "uma letra minúscula, um número e um caractere especial."
+        );
+
+        return;
+    }
+
+
+    // ========================================
+    // TODOS OS DADOS ESTÃO CORRETOS
+    // ========================================
+
     alert("Login realizado com sucesso!");
+
     window.location.href = "painel.html";
+
 });
