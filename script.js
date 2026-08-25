@@ -33,7 +33,7 @@ formulario.addEventListener("submit", function(event) {
     // VALIDAÇÃO DO NOME
     // ========================================
 
-    if (nome.length < 3) {
+    if (nome === "" || nome.split(" ").length < 2) {
 
         alert("Digite um nome válido.");
 
