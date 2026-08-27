@@ -1,65 +1,56 @@
-const formulario = document.getElementById("meuFormulario");
+const formulario = document.getElementById('meuFormulario')
 
-formulario.addEventListener("submit", function(event) {
+formulario.addEventListener('submit', function (event) {
+  event.preventDefault()
 
-    event.preventDefault();
+  // ========================================
+  // PEGANDO OS VALORES DOS CAMPOS
+  // ========================================
 
+  const nome = document.getElementById('nome').value.trim()
 
-    // ========================================
-    // PEGANDO OS VALORES DOS CAMPOS
-    // ========================================
+  const email = document.getElementById('email').value.trim()
 
-    const nome = document.getElementById("nome").value.trim();
+  const senha = document.getElementById('senha').value.trim()
 
-    const email = document.getElementById("email").value.trim();
+  // ========================================
+  // PRIMEIRA VALIDAÇÃO:
+  // VERIFICAR SE TODOS OS CAMPOS FORAM PREENCHIDOS
+  // ========================================
 
-    const senha = document.getElementById("senha").value.trim();
+  if (nome === '' || email === '' || senha === '') {
+    alert('Todos os campos precisam ser preenchidos.')
 
+    return
+  }
 
-    // ========================================
-    // PRIMEIRA VALIDAÇÃO:
-    // VERIFICAR SE TODOS OS CAMPOS FORAM PREENCHIDOS
-    // ========================================
+  // ========================================
+  // VALIDAÇÃO DO NOME
+  // ========================================
 
-    if (nome === "" || email === "" || senha === "") {
+  if (nome === '' || nome.split(' ').length < 2) {
+    alert('Digite um nome válido.')
 
-        alert("Todos os campos precisam ser preenchidos.");
+    return
+  }
 
-        return;
-    }
+  // ========================================
+  // VALIDAÇÃO DO E-MAIL
+  // ========================================
 
+  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-    // ========================================
-    // VALIDAÇÃO DO NOME
-    // ========================================
+  if (!regexEmail.test(email)) {
+    alert('Digite um e-mail válido.')
 
-    if (nome === "" || nome.split(" ").length < 2) {
+    return
+  }
 
-        alert("Digite um nome válido.");
+  // ========================================
+  // VALIDAÇÃO DA SENHA
+  // ========================================
 
-        return;
-    }
-
-
-    // ========================================
-    // VALIDAÇÃO DO E-MAIL
-    // ========================================
-
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!regexEmail.test(email)) {
-
-        alert("Digite um e-mail válido.");
-
-        return;
-    }
-
-
-    // ========================================
-    // VALIDAÇÃO DA SENHA
-    // ========================================
-
-    /*
+  /*
         A senha precisa ter:
 
         - Pelo menos 8 caracteres
@@ -69,28 +60,27 @@ formulario.addEventListener("submit", function(event) {
         - Um caractere especial
     */
 
-    const regexSenha =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const regexSenha =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 
+  if (!regexSenha.test(senha)) {
+    alert(
+      'A senha deve ter no mínimo 8 caracteres, ' +
+        'incluindo pelo menos uma letra maiúscula, ' +
+        'uma letra minúscula, um número e um caractere especial.'
+    )
 
-    if (!regexSenha.test(senha)) {
+    return
+  }
 
-        alert(
-            "A senha deve ter no mínimo 8 caracteres, " +
-            "incluindo pelo menos uma letra maiúscula, " +
-            "uma letra minúscula, um número e um caractere especial."
-        );
+  // ========================================
+  // TODOS OS DADOS ESTÃO CORRETOS
+  // ========================================
 
-        return;
-    }
+  alert('Login realizado com sucesso!')
 
+  sessionStorage.setItem('logado', 'true')
+  sessionStorage.setItem('nome', nome)
 
-    // ========================================
-    // TODOS OS DADOS ESTÃO CORRETOS
-    // ========================================
-
-    alert("Login realizado com sucesso!");
-
-    window.location.href = "painel.html";
-
-});
+  window.location.href = 'painel.html'
+})
