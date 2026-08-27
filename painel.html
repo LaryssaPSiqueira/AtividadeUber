@@ -28,9 +28,8 @@
 
         <section class="boas-vindas">
 
-            <h2>
-                Olá, Laryssa!
-            </h2>
+            <h2 id="ola"></h2>
+
 
             <p>
                 Bem-vinda ao seu painel.
@@ -175,7 +174,14 @@
         </section>
 
     </main>
+    <script>
+        if (sessionStorage.getItem("logado") !== "true") {
+            window.location.href = "index.html";
+        }
 
+        document.getElementById("ola").innerText =
+            "Olá, " + sessionStorage.getItem("nome") + "!";
+    </script>
 </body>
 
 </html>
