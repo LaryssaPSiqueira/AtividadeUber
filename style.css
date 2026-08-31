@@ -21,12 +21,6 @@ body.login-page {
     justify-content: center;
     align-items: center;
 
-    /*
-       Imagem de fundo.
-       Coloque uma imagem chamada "fundo.jpg"
-       na mesma pasta deste arquivo CSS.
-    */
-
     background-image:
         linear-gradient(
             rgba(0, 0, 0, 0.65),
